@@ -11,4 +11,9 @@ node {
             sh 'echo result container'
         }
     }
+    stage('Push image') {
+        docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
+            resultImage.push("${env.BUILD_NUMBER}")
+            resultImage.push("latest")
+        }
 }
