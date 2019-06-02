@@ -16,4 +16,5 @@ node {
             resultImage.push("${env.BUILD_NUMBER}")
             resultImage.push("latest")
         }
+    }
 }
