@@ -1,5 +1,7 @@
 node {
     def resultImage
+    def voteImage
+    def workerImage
     stage('Clone repository') {
         checkout scm
     }
