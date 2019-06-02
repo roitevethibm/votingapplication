@@ -66,7 +66,7 @@ node {
     }
     stage('helm init') {
         script {
-        sh "helm init --client-only"
+        sh "helm init --client-only --skip-refresh"
         }
     }
     
