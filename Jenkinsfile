@@ -1,8 +1,8 @@
 node {
     checkout scm
-    def resultImage = docker.build("test-image", "./src/result") 
+    def resultImage = docker.build("roitev/result", "./src/result") 
 
     resultImage.inside {
-        sh 'make test'
+        sh 'echo result container'
     }
 }
