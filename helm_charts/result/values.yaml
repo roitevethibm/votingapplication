@@ -1,0 +1,15 @@
+# Default values for result.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+replicaCount: 1
+
+image:
+  repository: dockersamples/examplevotingapp_result
+  tag: before
+  pullPolicy: IfNotPresent
+
+service:
+  type: NodePort
+  port: 5001
+  targetPort: 80
+  nodePort: 31001
