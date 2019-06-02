@@ -2,6 +2,14 @@ node {
     def resultImage
     def voteImage
     def workerImage
+
+    def helmPackage (path) {
+    echo "Packaging ${path}"
+
+    script {
+        sh "helm package ${path}"
+    }
+}
     stage('Clone repository') {
         checkout scm
     }
@@ -49,6 +57,12 @@ node {
             workerImage.push("latest")
         }
     }
+
+    stage('helm package db') {
+        helmPackage('helm_charts/db')
+    }
+
+    
 
 
 }
