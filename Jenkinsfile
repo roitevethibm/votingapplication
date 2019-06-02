@@ -1,9 +1,10 @@
 node {
+    def resultImage
     stage('Clone repository') {
         checkout scm
     }
     stage('build result docker image') {
-        def resultImage = docker.build("roitev/result", "./src/result") 
+        resultImage = docker.build("roitev/result", "./src/result") 
     }
     stage('test result image') {
         resultImage.inside {
