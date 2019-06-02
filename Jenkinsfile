@@ -1,15 +1,16 @@
-node {
-    def resultImage
-    def voteImage
-    def workerImage
-
-    def helmPackage (path) {
+def helmPackage (path) {
     echo "Packaging ${path}"
 
     script {
         sh "helm package ${path}"
     }
 }
+
+node {
+    def resultImage
+    def voteImage
+    def workerImage
+
     stage('Clone repository') {
         checkout scm
     }
