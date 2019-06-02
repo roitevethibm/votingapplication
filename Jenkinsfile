@@ -62,8 +62,14 @@ node {
     stage('cloudctl login') {
         script {
         sh "cloudctl login -a https://9.98.171.136:8443 --skip-ssl-validation -u admin -p admin -n default"
+        }
     }
+    stage('helm init') {
+        script {
+        sh "helm init --client-only"
+        }
     }
+    
     stage('helm package db') {
         helmPackage('helm_charts/db')
     }
