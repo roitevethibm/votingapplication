@@ -13,5 +13,5 @@ spec:
   deployer:
     kind: helm
     helm:
-      chartURL: {{ .Values.chartRepoURL }}/vote-0.1.0.tgz
+      chartURL: {{ .Values.chartRepoURL }}/vote-BUILD_VERSION.tgz
       namespace: {{ .Values.appInClusterNamespace }}

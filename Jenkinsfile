@@ -85,6 +85,7 @@ node {
     stage('tailor helm charts') {
         script {
         sh "sed -i -- 's/BUILD_VERSION/${env.BUILD_NUMBER}/g' ./helm_charts/*/*.yaml"
+        sh "sed -i -- 's/BUILD_VERSION/${env.BUILD_NUMBER}/g' ./helm_charts/votingapplication/*/*.yaml"
         }
     }
     stage('helm package charts') {
