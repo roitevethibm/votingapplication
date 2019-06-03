@@ -10,7 +10,7 @@ def uploadChart (file) {
     echo "uploading chart to chartmuseum ${file}"
 
     script {
-        sh 'curl --data-binary "@$(file)" http://9.98.171.136:30552/api/charts'
+        sh 'curl --data-binary "@' + file + " http://9.98.171.136:30552/api/charts'
     }
 }
 
