@@ -86,6 +86,38 @@ node {
         uploadChart('db-0.1.0.tgz')
     }
 
+    stage('helm package redis') {
+        helmPackage('helm_charts/redis')
+    }
+    stage('upload helm chart redis') {
+        uploadChart('redis-0.1.0.tgz')
+    }
+
+    stage('helm package result') {
+        helmPackage('helm_charts/result')
+    }
+    stage('upload helm chart result') {
+        uploadChart('result-0.1.0.tgz')
+    }
+
+    stage('helm package vote') {
+        helmPackage('helm_charts/vote')
+    }
+    stage('upload helm chart vote') {
+        uploadChart('vote-0.1.0.tgz')
+    }
+
+    stage('helm package worker') {
+        helmPackage('helm_charts/worker')
+    }
+    stage('upload helm chart worker') {
+        uploadChart('worker-0.1.0.tgz')
+    }
+
+
+
+
+
     
 
 
