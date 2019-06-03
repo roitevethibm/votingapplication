@@ -19,7 +19,7 @@ def helmInstall (chart, release) {
 
     script {
         sh """
-            helm upgrade --install ${chart} -n ${release} --tls
+            helm upgrade --install ${release} ${chart} --tls
         """
         sh "sleep 5"
     }
