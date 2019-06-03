@@ -18,6 +18,7 @@ def helmInstall (chart, release) {
     echo "Installing ${chart} release ${release}"
 
     script {
+        sh "helm del --purge ${release}"
         sh """
             helm upgrade --install ${release} ${chart} --tls --recreate-pods
         """
