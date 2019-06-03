@@ -5,5 +5,5 @@ replicaCount: 1
 
 image:
   repository: roitev/worker
-  tag: latest
+  tag: BUILD_VERSION
   pullPolicy: Always

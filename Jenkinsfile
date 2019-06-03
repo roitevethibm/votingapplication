@@ -75,13 +75,18 @@ node {
         sh "cloudctl login -a https://9.98.171.136:8443 --skip-ssl-validation -u admin -p admin -n voting"
         }
     }
-    
+
     stage('helm init') {
         script {
         sh "helm init --client-only --skip-refresh"
         }
     }
     
+    stage('tailor helm charts') {
+        script {
+        sh "sed -i -- 's/BUILD_VERSION/${env.BUILD_NUMBER}/g' ./helm_charts/*/values.yaml"
+        }
+    }
     stage('helm package charts') {
         helmPackage('helm_charts/db')
         helmPackage('helm_charts/redis')

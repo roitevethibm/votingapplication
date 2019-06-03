@@ -5,7 +5,7 @@ replicaCount: 1
 
 image:
   repository: roitev/result
-  tag: latest
+  tag: BUILD_VERSION
   pullPolicy: Always
 
 service:
