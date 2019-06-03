@@ -21,6 +21,11 @@ spec:
     spec:
       containers:
         - name: {{ .Chart.Name }}
+          env:
+          - name: OPTION_A
+            value: "{{ .Values.vote_options.OPTION_A }}"
+          - name: OPTION_B
+            value: "{{ .Values.vote_options.OPTION_B }}"
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           
