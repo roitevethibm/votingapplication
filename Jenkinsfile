@@ -84,7 +84,7 @@ node {
     
     stage('tailor helm charts') {
         script {
-        sh "sed -i -- 's/BUILD_VERSION/${env.BUILD_NUMBER}/g' ./helm_charts/*/values.yaml"
+        sh "sed -i -- 's/BUILD_VERSION/${env.BUILD_NUMBER}/g' ./helm_charts/*/*.yaml"
         }
     }
     stage('helm package charts') {
@@ -97,11 +97,11 @@ node {
 
     }
     stage('upload helm charts to chartmuseum') {
-        uploadChart('db-0.1.0.tgz')
-        uploadChart('redis-0.1.0.tgz')
-        uploadChart('result-0.1.0.tgz')
-        uploadChart('vote-0.1.0.tgz')
-        uploadChart('worker-0.1.0.tgz')
+        uploadChart("db-${env.BUILD_NUMBER}.tgz")
+        uploadChart("redis-${env.BUILD_NUMBER}.tgz")
+        uploadChart("result-${env.BUILD_NUMBER}.tgz")
+        uploadChart("vote-${env.BUILD_NUMBER}.tgz")
+        uploadChart("worker-${env.BUILD_NUMBER}.tgz")
     }
 
     stage('helm install votingapplication') {

@@ -1,4 +1,4 @@
 apiVersion: v1
 description: Voting Application kubernetes sample
 name: votingapplication
-version: 0.1.0
+version: BUILD_VERSION

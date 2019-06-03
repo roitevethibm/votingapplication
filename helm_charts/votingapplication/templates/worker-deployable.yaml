@@ -13,5 +13,5 @@ spec:
   deployer:
     kind: helm
     helm:
-      chartURL: {{ .Values.chartRepoURL }}/worker-0.1.0.tgz
+      chartURL: {{ .Values.chartRepoURL }}/worker-BUILD_VERSION.tgz
       namespace: {{ .Values.appInClusterNamespace }}
