@@ -6,6 +6,15 @@ def helmPackage (path) {
     }
 }
 
+def uploadChart (file) {
+    echo "uploading chart to chartmuseum ${file}"
+
+    script {
+        sh "curl --data-binary "@$(file)" http://9.98.171.136:30552/api/charts"
+    }
+}
+
+
 node {
     def resultImage
     def voteImage
@@ -72,6 +81,9 @@ node {
     
     stage('helm package db') {
         helmPackage('helm_charts/db')
+    }
+    stage('upload helm chart db') {
+        uploadChart('db-0.1.0.tgz')
     }
 
     
