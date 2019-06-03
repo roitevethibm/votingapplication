@@ -82,7 +82,7 @@ node {
 
     stage('cloudctl login') {
         script {
-        sh "cloudctl login -a https://9.98.171.136:8443 --skip-ssl-validation -u admin -p admin -n default"
+        sh "cloudctl login -a https://9.98.171.136:8443 --skip-ssl-validation -u admin -p admin -n voting"
         }
     }
     stage('helm init') {
@@ -131,7 +131,7 @@ node {
     }
 
     stage('helm install votingapplication') {
-        helmInstall('helm_charts/votingapplication', 'voting')
+        helmInstall('helm_charts/votingapplication', 'votingapp')
     }
 
 
