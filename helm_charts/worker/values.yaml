@@ -4,6 +4,6 @@
 replicaCount: 1
 
 image:
-  repository: dockersamples/examplevotingapp_worker
+  repository: roitev/worker
   tag: latest
-  pullPolicy: IfNotPresent
+  pullPolicy: Always

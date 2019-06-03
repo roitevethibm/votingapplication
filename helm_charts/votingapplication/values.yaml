@@ -1,0 +1,17 @@
+replicaCount: 1
+
+appInClusterNamespace: voting
+
+targetCluster:
+  labelSelector:
+    matchLabels:
+      #vendor: "ICP"
+      region: "US"
+      #environment: Dev
+      #datacenter: "toronto"
+      #owner: "marketing"
+  resourceSelector:
+    type: cpu
+  compliances: ""
+
+chartRepoURL: http://chartmuseum.chartmuseum:8080/charts

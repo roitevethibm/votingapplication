@@ -4,9 +4,9 @@
 replicaCount: 1
 
 image:
-  repository: dockersamples/examplevotingapp_result
-  tag: before
-  pullPolicy: IfNotPresent
+  repository: roitev/result
+  tag: latest
+  pullPolicy: Always
 
 service:
   type: NodePort

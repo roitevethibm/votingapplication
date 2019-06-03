@@ -14,6 +14,18 @@ def uploadChart (file) {
     }
 }
 
+def helmInstall (chart, release) {
+    echo "Installing ${chart} release ${release}"
+
+    script {
+        sh """
+            helm upgrade --install ${chart} -n ${release} --tls
+        """
+        sh "sleep 5"
+    }
+}
+
+
 
 node {
     def resultImage
@@ -113,6 +125,15 @@ node {
     stage('upload helm chart worker') {
         uploadChart('worker-0.1.0.tgz')
     }
+
+    stage('helm package votingapplication') {
+        helmPackage('helm_charts/votingapplication')
+    }
+
+    stage('helm install votingapplication') {
+        helmInstall('helm_charts/votingapplication', 'voting')
+    }
+
 
 
 

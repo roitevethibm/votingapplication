@@ -1,0 +1,19 @@
+apiVersion: mcm.ibm.com/v1alpha1
+kind: PlacementBinding
+metadata:
+  name: {{ template "votingapplication.fullname" . }}-vote
+  labels:
+    app: {{ template "votingapplication.name" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+    name: {{ template "votingapplication.fullname" . }}-vote
+    servicekind: CacheService
+placementRef:
+  apiGroup: mcm.ibm.com
+  kind: PlacementPolicy
+  name: {{ template "votingapplication.fullname" . }}-vote
+subjects:
+- apiGroup: mcm.ibm.com
+  kind: Deployable
+  name: {{ template "votingapplication.fullname" . }}-vote

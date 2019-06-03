@@ -1,0 +1,19 @@
+apiVersion: mcm.ibm.com/v1alpha1
+kind: PlacementPolicy
+metadata:
+  name: {{ template "votingapplication.fullname" . }}-vote
+  labels:
+    app: {{ template "votingapplication.name" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+    name: {{ template "votingapplication.fullname" . }}-vote
+    servicekind: CacheService
+spec:
+  clusterReplicas: {{ .Values.replicaCount }}
+  clusterLabels:
+    matchLabels:
+{{ toYaml .Values.targetCluster.labelSelector.matchLabels | indent 6 }}
+  resourceHint:
+{{ toYaml .Values.targetCluster.resourceSelector | indent 4 }}
+  compliances: {{ .Values.targetCluster.compliances }}

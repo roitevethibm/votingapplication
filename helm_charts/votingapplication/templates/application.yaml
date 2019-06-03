@@ -1,0 +1,25 @@
+apiVersion: app.k8s.io/v1beta1
+kind: Application
+metadata:
+  name: {{ template "votingapplication.fullname" . }}
+  labels:
+    app: {{ template "votingapplication.name" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+    name: {{ template "votingapplication.fullname" . }}
+spec:
+  selector:
+    matchExpressions:
+    - key: app
+      operator: In
+      values:
+      - votingapplication
+      - db
+      - redis
+      - result
+      - vote
+      - worker
+  componentKinds:
+  - group: core
+    kind: Pods
