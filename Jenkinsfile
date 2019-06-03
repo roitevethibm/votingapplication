@@ -35,48 +35,38 @@ node {
     stage('Clone repository') {
         checkout scm
     }
-    stage('build result docker image') {
-        resultImage = docker.build("roitev/result", "./src/result") 
+    stage('build docker images') {
+        resultImage = docker.build("roitev/result", "./src/result")
+        voteImage = docker.build("roitev/vote", "./src/vote")
+        workerImage = docker.build("roitev/worker", "./src/worker")
+
     }
-    stage('test result image') {
+    stage('test docker images') {
         resultImage.inside {
             sh 'echo result container'
         }
-    }
-    stage('Push result image') {
-        docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
-            resultImage.push("${env.BUILD_NUMBER}")
-            resultImage.push("latest")
-        }
-    }
 
-    stage('build vote docker image') {
-        voteImage = docker.build("roitev/vote", "./src/vote") 
-    }
-    stage('test vote image') {
         voteImage.inside {
             sh 'echo vote container'
         }
-    }
-    stage('Push vote image') {
-        docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
-            voteImage.push("${env.BUILD_NUMBER}")
-            voteImage.push("latest")
-        }
-    }
 
-    stage('build worker docker image') {
-        workerImage = docker.build("roitev/worker", "./src/worker") 
-    }
-    stage('test worker image') {
         workerImage.inside {
             sh 'echo worker container'
         }
     }
-    stage('Push worker image') {
+
+    stage('Push docker images') {
         docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
+            resultImage.push("${env.BUILD_NUMBER}")
+            resultImage.push("latest")
+
+            voteImage.push("${env.BUILD_NUMBER}")
+            voteImage.push("latest")
+
             workerImage.push("${env.BUILD_NUMBER}")
             workerImage.push("latest")
+
+
         }
     }
 
@@ -85,61 +75,32 @@ node {
         sh "cloudctl login -a https://9.98.171.136:8443 --skip-ssl-validation -u admin -p admin -n voting"
         }
     }
+    
     stage('helm init') {
         script {
         sh "helm init --client-only --skip-refresh"
         }
     }
     
-    stage('helm package db') {
+    stage('helm package charts') {
         helmPackage('helm_charts/db')
-    }
-    stage('upload helm chart db') {
-        uploadChart('db-0.1.0.tgz')
-    }
-
-    stage('helm package redis') {
         helmPackage('helm_charts/redis')
-    }
-    stage('upload helm chart redis') {
-        uploadChart('redis-0.1.0.tgz')
-    }
-
-    stage('helm package result') {
         helmPackage('helm_charts/result')
-    }
-    stage('upload helm chart result') {
-        uploadChart('result-0.1.0.tgz')
-    }
-
-    stage('helm package vote') {
         helmPackage('helm_charts/vote')
-    }
-    stage('upload helm chart vote') {
-        uploadChart('vote-0.1.0.tgz')
-    }
-
-    stage('helm package worker') {
         helmPackage('helm_charts/worker')
-    }
-    stage('upload helm chart worker') {
-        uploadChart('worker-0.1.0.tgz')
-    }
-
-    stage('helm package votingapplication') {
         helmPackage('helm_charts/votingapplication')
+
+    }
+    stage('upload helm charts to chartmuseum') {
+        uploadChart('db-0.1.0.tgz')
+        uploadChart('redis-0.1.0.tgz')
+        uploadChart('result-0.1.0.tgz')
+        uploadChart('vote-0.1.0.tgz')
+        uploadChart('worker-0.1.0.tgz')
     }
 
     stage('helm install votingapplication') {
         helmInstall('helm_charts/votingapplication', 'votingapp')
     }
-
-
-
-
-
-
-    
-
 
 }
