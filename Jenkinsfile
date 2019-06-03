@@ -19,10 +19,11 @@ def helmInstall (chart, release) {
 
     script {
         sh "helm del --purge ${release} --tls"
+        sh "sleep 15"
         sh """
             helm upgrade --install ${release} ${chart} --tls --recreate-pods
         """
-        sh "sleep 5"
+        
     }
 }
 
