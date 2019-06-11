@@ -14,4 +14,4 @@ targetCluster:
     type: cpu
   compliances: ""
 
-chartRepoURL: http://chartmuseum.chartmuseum:8080/charts
+chartRepoURL: http://9.98.171.136:30552/charts
