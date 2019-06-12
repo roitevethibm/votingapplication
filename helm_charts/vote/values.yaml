@@ -15,5 +15,5 @@ service:
   nodePort: 31000
 
 vote_options:
-  OPTION_A: donkey
-  OPTION_B: horse
+  OPTION_A: bibi
+  OPTION_B: gantz
