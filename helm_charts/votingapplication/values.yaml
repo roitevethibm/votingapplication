@@ -7,6 +7,7 @@ targetCluster:
     matchLabels:
       #vendor: "ICP"
       region: "US"
+      Demo "TRUE"
       #environment: Dev
       #datacenter: "toronto"
       #owner: "marketing"
