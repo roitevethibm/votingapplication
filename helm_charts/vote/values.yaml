@@ -15,5 +15,5 @@ service:
   nodePort: 31000
 
 vote_options:
-  OPTION_A: bibi
-  OPTION_B: gantz
+  OPTION_A: cola
+  OPTION_B: pepsi
